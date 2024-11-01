@@ -1,6 +1,14 @@
 #include <iostream>
 #include <vulkan/vulkan.h>
 
+/* TODO
+
+    * Copy over old data from old engine into Vulkan engine
+
+    * Configure tasks.json and launch.json to work with Vulkan and the old engine
+    
+ */
+
 int main() {
 
     VkApplicationInfo appInfo = {};
@@ -13,8 +21,16 @@ int main() {
     VkInstanceCreateInfo instanceInfo = {};
     instanceInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     instanceInfo.pApplicationInfo = &appInfo;
-    
-    vkCreateInstance()
+
+    VkInstance instance;
+
+    VkResult result = vkCreateInstance(&instanceInfo, 0, &instance);
+    if (result == VK_SUCCESS) {
+        std::cout << "Successfully created Vulkan instance!" << std::endl;
+    }
+    else {
+        std::cerr << "Failed to create Vulkan instance!" << std::endl;
+    }
 
     /*
     std::cout << "Hello, World!" << std::endl;
