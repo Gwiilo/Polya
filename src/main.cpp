@@ -2,6 +2,21 @@
 #include <vulkan/vulkan.h>
 
 int main() {
+
+    VkApplicationInfo appInfo = {};
+    appInfo.apiVersion = VK_API_VERSION_1_0;
+    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+    appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
+    appInfo.pEngineName = "Polygin";
+    appInfo.pApplicationName = "Polya";
+
+    VkInstanceCreateInfo instanceInfo = {};
+    instanceInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    instanceInfo.pApplicationInfo = &appInfo;
+    
+    vkCreateInstance()
+
+    /*
     std::cout << "Hello, World!" << std::endl;
 
     // Initialize Vulkan (example code)
@@ -25,6 +40,6 @@ int main() {
 
     // Clean up Vulkan instance
     vkDestroyInstance(instance, nullptr);
-
+    */
     return 0;
 }
