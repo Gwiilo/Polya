@@ -8,7 +8,7 @@ if not defined VULKAN_SDK (
     set VULKAN_SDK=C:\Path\To\Your\VulkanSDK
 )
 
-SET includes=/Isrc /I%VULKAN_SDK%/Include
+SET includes=/Isrc /I%VULKAN_SDK%/Include /Iclasses /Ifuncs
 SET links=/link /LIBPATH:%VULKAN_SDK%/Lib vulkan-1.lib
 SET defines=/D DEBUG
 
