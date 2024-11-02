@@ -36,9 +36,11 @@ bool platformCreateWindow(HWND& window) {
 
     window = CreateWindowExW(
         WS_EX_APPWINDOW,
-        L"Polygin",
-        L"Polya",
-        0, 100, 100, screenWidth, screenHeight, 0, 0, instance, 0
+        L"Polygin", // Window class name
+        L"Polya",   // Window title
+        WS_OVERLAPPEDWINDOW, // Window style
+        100, 100, screenWidth, screenHeight,
+        nullptr, nullptr, instance, nullptr
     );
     if(window) {
         ShowWindow(window, SW_SHOW);
@@ -51,16 +53,17 @@ bool platformCreateWindow(HWND& window) {
 
 int main() {
     HWND window = 0;
-    if(platformCreateWindow(window)) {
+    if (!platformCreateWindow(window)) {
         return -1;
     }
 
-    while(running) {
+    while (running) {
         MSG message;
-        while(PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
+        while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE)) {
             TranslateMessage(&message);
             DispatchMessage(&message);
         }
+        // Perform other per-frame updates here if needed
     }
 
     return EXIT_SUCCESS;

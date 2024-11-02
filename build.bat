@@ -14,4 +14,4 @@ SET defines=/D DEBUG
 
 echo "Building main..."
 
-cl /EHsc /Z7 /Fe"main" %includes% %defines% src/platform/win32platform.cpp %links%
+cl /EHsc /Z7 /Fe"main.exe" %includes% %defines% src/platform/win32platform.cpp %links%
