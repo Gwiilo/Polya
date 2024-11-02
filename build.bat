@@ -9,9 +9,9 @@ if not defined VULKAN_SDK (
 )
 
 SET includes=/Isrc /I%VULKAN_SDK%/Include /Iclasses /Ifuncs
-SET links=/link /LIBPATH:%VULKAN_SDK%/Lib vulkan-1.lib
+SET links=/link /LIBPATH:%VULKAN_SDK%/Lib vulkan-1.lib user32.lib
 SET defines=/D DEBUG
 
 echo "Building main..."
 
-cl /EHsc %includes% %defines% src/main.cpp %links%
+cl /EHsc /Z7 /Fe"main" %includes% %defines% src/platform/win32platform.cpp %links%
