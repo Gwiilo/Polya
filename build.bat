@@ -12,6 +12,6 @@ SET includes=/Isrc /I%VULKAN_SDK%/Include /Iclasses /Ifuncs
 SET links=/link /LIBPATH:%VULKAN_SDK%/Lib vulkan-1.lib user32.lib
 SET defines=/D DEBUG
 
-echo "Building Poly..."
+echo "Building Polya..."
 
-cl /EHsc /Z7 /Fe"Poly.exe" %includes% %defines% src/platform/win32platform.cpp %links%
+cl /EHsc /Z7 /Fe"Polya.exe" %includes% %defines% src/platform/win32platform.cpp src/renderer/vkRenderer.cpp globals.cpp %links%

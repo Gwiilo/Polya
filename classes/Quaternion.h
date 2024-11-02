@@ -2,6 +2,7 @@
 #define QUATERNION_H
 
 #include <cmath>
+#include <iostream>
 #include "../classes/Vector3.h"
 
 class Quaternion {
@@ -37,8 +38,16 @@ public:
 
     // Normalize the quaternion
     Quaternion normalize() const {
-        float magnitude = std::sqrt(x * x + y * y + z * z + w * w);
-        return *this / magnitude;
+        try {
+            float magnitude = std::sqrt(x * x + y * y + z * z + w * w);
+            if (magnitude == 0) {
+                std::cerr << "Warning: magnitude is zero in Quaternion::normalize" << std::endl;
+            }
+            return *this / magnitude;
+        } catch (const std::exception& e) {
+            std::cerr << "Exception in Quaternion::normalize: " << e.what() << std::endl;
+            throw;
+        }
     }
 
     // Quaternion-Quaternion multiplication (for rotation chaining)

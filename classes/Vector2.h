@@ -2,6 +2,8 @@
 #define VECTOR2_H
 
 #include <cmath>
+#include <iostream>
+#include <exception>
 #include "../funcs/MathFunctions.h"
 
 class Vector2 {
@@ -17,8 +19,16 @@ public:
 
     // Normalized
     Vector2 normalized() const {
-        float mag = magnitude();
-        return mag > 0 ? Vector2(x / mag, y / mag) : Vector2(0.0f, 0.0f);
+        try {
+            float mag = magnitude();
+            if (mag == 0) {
+                std::cerr << "Warning: magnitude is zero in Vector2::normalized" << std::endl;
+            }
+            return mag > 0 ? Vector2(x / mag, y / mag) : Vector2(0.0f, 0.0f);
+        } catch (const std::exception& e) {
+            std::cerr << "Exception in Vector2::normalized: " << e.what() << std::endl;
+            throw;
+        }
     }
 
     // Subtraction operator

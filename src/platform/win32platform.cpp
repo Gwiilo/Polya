@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <../globals.h>
-#include <renderer/vkRenderer.cpp>
+#include "../renderer/vkRenderer.h"
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
@@ -8,6 +8,8 @@
 #include <vulkan/vulkan.h>
 #include <../classes/Camera.h>
 #include <../globals.h>
+#include "../classes/Cube.h"
+#include "../classes/Vector3.h"
 
 static bool running = true;
 LRESULT CALLBACK platformWindowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -81,11 +83,18 @@ int main() {
         return -1;
     }
 
+    Cube cubeWithTriangles(false);
+    Cube cubeWithQuads(true);
+
+    Vector3 position1(0.0f, 0.0f, -5.0f);
+    Vector3 position2(2.0f, 0.0f, -5.0f);
+
     while (running) {
         platformUpdateWindow(window);
+        renderCube(&vkcontext, cubeWithTriangles, position1);
+        renderCube(&vkcontext, cubeWithQuads, position2);
         // Perform other per-frame updates here if needed
     }
 
-    //return EXIT_SUCCESS;
     return 0;
 }

@@ -59,25 +59,41 @@ Example usage:
 */
 
 Vector3 midpoint(const std::vector<Vector3>& positions) {
-    if (positions.empty()) return Vector3(0.0f, 0.0f, 0.0f);
+    try {
+        if (positions.empty()) {
+            std::cerr << "Error: positions vector is empty in midpoint(Vector3)" << std::endl;
+            return Vector3(0.0f, 0.0f, 0.0f);
+        }
 
-    Vector3 totalPositions = positions[0];
-    for (size_t i = 1; i < positions.size(); ++i) {
-        totalPositions = totalPositions + positions[i];
+        Vector3 totalPositions = positions[0];
+        for (size_t i = 1; i < positions.size(); ++i) {
+            totalPositions = totalPositions + positions[i];
+        }
+
+        return totalPositions / static_cast<float>(positions.size());
+    } catch (const std::exception& e) {
+        std::cerr << "Exception in midpoint(Vector3): " << e.what() << std::endl;
+        throw;
     }
-
-    return totalPositions / static_cast<float>(positions.size());
 }
 
 Vector2 midpoint(const std::vector<Vector2>& positions) {
-    if (positions.empty()) return Vector2(0.0f, 0.0f);
+    try {
+        if (positions.empty()) {
+            std::cerr << "Error: positions vector is empty in midpoint(Vector2)" << std::endl;
+            return Vector2(0.0f, 0.0f);
+        }
 
-    Vector2 totalPositions = positions[0];
-    for (size_t i = 1; i < positions.size(); ++i) {
-        totalPositions = totalPositions + positions[i];
+        Vector2 totalPositions = positions[0];
+        for (size_t i = 1; i < positions.size(); ++i) {
+            totalPositions = totalPositions + positions[i];
+        }
+
+        return totalPositions / static_cast<float>(positions.size());
+    } catch (const std::exception& e) {
+        std::cerr << "Exception in midpoint(Vector2): " << e.what() << std::endl;
+        throw;
     }
-
-    return totalPositions / static_cast<float>(positions.size());
 }
 
 /*

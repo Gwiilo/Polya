@@ -2,6 +2,7 @@
 #define VECTOR3_H
 
 #include <cmath>
+#include <iostream>
 
 class Vector3 {
 public:
@@ -16,8 +17,16 @@ public:
 
     // Normalized
     Vector3 normalized() const {
-        float mag = magnitude();
-        return mag > 0 ? Vector3(x / mag, y / mag, z / mag) : Vector3(0.0f, 0.0f, 0.0f);
+        try {
+            float mag = magnitude();
+            if (mag == 0) {
+                std::cerr << "Warning: magnitude is zero in Vector3::normalized" << std::endl;
+            }
+            return mag > 0 ? Vector3(x / mag, y / mag, z / mag) : Vector3(0.0f, 0.0f, 0.0f);
+        } catch (const std::exception& e) {
+            std::cerr << "Exception in Vector3::normalized: " << e.what() << std::endl;
+            throw;
+        }
     }
 
     Vector3 cross(const Vector3& other) const {
