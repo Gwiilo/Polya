@@ -1,6 +1,13 @@
 #include <windows.h>
 #include <../globals.h>
 #include <renderer/vkRenderer.cpp>
+#include <iostream>
+#include <stdexcept>
+#include <cstdlib>
+#include <vector>
+#include <vulkan/vulkan.h>
+#include <../classes/Camera.h>
+#include <../globals.h>
 
 static bool running = true;
 LRESULT CALLBACK platformWindowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -63,12 +70,14 @@ void platformUpdateWindow(HWND window) {
 }
 
 int main() {
+    VkContext vkcontext = {};
+
     HWND window = 0;
     if (!platformCreateWindow(window)) {
         return -1;
     }
 
-    if(!vkInit()) {
+    if(!vkInit(&vkcontext)) {
         return -1;
     }
 
@@ -77,5 +86,6 @@ int main() {
         // Perform other per-frame updates here if needed
     }
 
-    return EXIT_SUCCESS;
+    //return EXIT_SUCCESS;
+    return 0;
 }
