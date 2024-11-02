@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <../globals.h>
+#include <renderer/vk_renderer.cpp>
 
 static bool running = true;
 LRESULT CALLBACK platformWindowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -28,6 +29,7 @@ bool platformCreateWindow(HWND& window) {
     wc.lpfnWndProc = platformWindowCallback;
     wc.hInstance = instance;
     wc.lpszClassName = L"Polygin";
+    //wc.hCursor = LoadCursorW(nullptr, IDC_ARROW);
 
     if (!RegisterClassW(&wc)) {
         MessageBoxW(window, L"Failed to register window class!", L"Error", MB_ICONEXCLAMATION | MB_OK);
@@ -42,6 +44,7 @@ bool platformCreateWindow(HWND& window) {
         100, 100, screenWidth, screenHeight,
         nullptr, nullptr, instance, nullptr
     );
+
     if(window) {
         ShowWindow(window, SW_SHOW);
         return true;
@@ -51,18 +54,26 @@ bool platformCreateWindow(HWND& window) {
     }
 }
 
+void platformUpdateWindow(HWND window) {
+    MSG message;
+    while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE)) {
+        TranslateMessage(&message);
+        DispatchMessage(&message);
+    }
+}
+
 int main() {
     HWND window = 0;
     if (!platformCreateWindow(window)) {
         return -1;
     }
 
+    if(!vk_init()) {
+        return -1;
+    }
+
     while (running) {
-        MSG message;
-        while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE)) {
-            TranslateMessage(&message);
-            DispatchMessage(&message);
-        }
+        platformUpdateWindow(window);
         // Perform other per-frame updates here if needed
     }
 
