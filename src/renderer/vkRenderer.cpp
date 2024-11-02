@@ -6,7 +6,7 @@
 #include <../classes/Camera.h>
 #include <../globals.h>
 
-bool vk_init() {
+bool vkInit() {
     VkInstance instance;
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;

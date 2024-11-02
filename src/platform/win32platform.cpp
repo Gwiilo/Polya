@@ -1,6 +1,6 @@
 #include <windows.h>
 #include <../globals.h>
-#include <renderer/vk_renderer.cpp>
+#include <renderer/vkRenderer.cpp>
 
 static bool running = true;
 LRESULT CALLBACK platformWindowCallback(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -68,7 +68,7 @@ int main() {
         return -1;
     }
 
-    if(!vk_init()) {
+    if(!vkInit()) {
         return -1;
     }
 
