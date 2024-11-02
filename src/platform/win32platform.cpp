@@ -21,15 +21,15 @@ LRESULT CALLBACK platformWindowCallback(HWND window, UINT message, WPARAM wParam
     return result;
 }
 
-bool platformCreateWindow(HWND window) {
+bool platformCreateWindow(HWND& window) {
     HINSTANCE instance = GetModuleHandleA(0);
 
-    WNDCLASS wc = {};
+    WNDCLASSW wc = {};
     wc.lpfnWndProc = platformWindowCallback;
     wc.hInstance = instance;
-    wc.lpszClassName = "vulkanengineclass";
+    wc.lpszClassName = L"Polygin";
 
-    if (!RegisterClass(&wc)) {
+    if (!RegisterClassW(&wc)) {
         MessageBoxW(window, L"Failed to register window class!", L"Error", MB_ICONEXCLAMATION | MB_OK);
         return false;
     }
@@ -47,13 +47,20 @@ bool platformCreateWindow(HWND window) {
         MessageBoxW(window, L"Failed to create window!", L"Error", MB_ICONEXCLAMATION | MB_OK);
         return false;
     }
-    
 }
 
 int main() {
     HWND window = 0;
     if(platformCreateWindow(window)) {
         return -1;
+    }
+
+    while(running) {
+        MSG message;
+        while(PeekMessage(&message, window, 0, 0, PM_REMOVE)) {
+            TranslateMessage(&message);
+            DispatchMessage(&message);
+        }
     }
 
     return EXIT_SUCCESS;
